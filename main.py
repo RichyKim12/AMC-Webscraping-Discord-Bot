@@ -18,10 +18,9 @@ async def on_message(message):
     print(f'{username}: {user_message} ({channel})')
     if message.author == client.user:
         return 
-    if message.channel.name == 'bot-testing':
-        if user_message.lower() == 'single':
-        #if 'single' in user_message.lower():
-            await message.channel.send(f'lmao mohit is single ong fr')
+    if message.channel.name == 'homework-help':
+        if user_message.lower() == 'shut up':
+            await message.channel.send(f'Eat my ass {username}! :(')
             return 
         elif user_message.lower() == 'bye':
             await message.channel.send(f'Bye {username}!')
