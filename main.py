@@ -18,6 +18,9 @@ async def on_message(message):
     print(f'{username}: {user_message} ({channel})')
     if message.author == client.user:
         return 
+    if message.channel.name == 'homework-help':
+        if user_message.lower() == 'shut up':
+            await message.channel.send(f'Eat my ass {username}! :(')
     if message.channel.name == 'bot-testing':
         if user_message.lower() == 'single':
         #if 'single' in user_message.lower():
@@ -30,4 +33,7 @@ async def on_message(message):
             response = f'This is your random number: {random.randrange(10000)}'
             await message.channel.send(response)
             return 
+        elif user_message.lower() == '!advice':
+            await message.channel.send(f'Learn some Python {username}.')
+            return
 client.run(TOKEN)
