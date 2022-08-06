@@ -1,3 +1,4 @@
+# Richard Kim
 from bs4 import BeautifulSoup # web scraping websites using HTML and XML
 import requests  # Making Http requests and parsing data
 
