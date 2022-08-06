@@ -72,4 +72,6 @@ for k,v in moviedict.items():
         moviedict[k].append(nodey2.text)
 
         
-
+for k,v in moviedict.items():
+    print(k)
+    print(v)
