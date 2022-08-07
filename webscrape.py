@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup # web scraping websites using HTML and XML
 import requests  # Making Http requests and parsing data
-
+import re
 
 html_text = requests.get('https://www.amctheatres.com/movies').text #if you dont use ".text" then you be passing data as bits instead of text
 soup = BeautifulSoup(html_text, 'lxml')
@@ -9,11 +9,11 @@ movies = soup.findAll('div', class_ = "Slide")
 
 # Dictionary:
 #    - key: movietitle
-#    - val[0]: img link
-#    - val[1]: movie link
-#    - val[2]: runtime
-#    - val[3]: Release date
-#    - val[4]: Maturity rating *********
+#    - val[0]: movie title
+#    - val[1]: img link
+#    - val[2]: movie link
+#    - val[3]: runtime
+#    - val[4]: Release date
 #    - val[5]: Movie description
 moviedict = {}
 
@@ -26,8 +26,11 @@ for movie in movies:
     # MOVIE TITLE
     movietitle = moviePosterContent.find('h3').text #need to use .text method otherwise it will return HTML syntax 
     #print(movietitle)
-    moviedict[movietitle] = []
+    temp = (movietitle.lower()).replace(" ","") # gets rid of white spaces and makes all letters lowercase
+    temp = re.sub(r'[^a-zA-Z0-9]', '', temp) # gets rid of all alphanumeric characters
+    moviedict[temp] = []
     
+    moviedata.append(movietitle)
     # MOVIE IMAGE
     movieimg = movie.find('img') #finds all data starting with img
     movieimgsrc = movieimg['src']
@@ -59,19 +62,19 @@ for movie in movies:
     #print()
     moviedata.append(movietime)
     moviedata.append(movierelease)
-    moviedict[movietitle].append(moviedata)
+    moviedict[temp].append(moviedata)
 
 #navigate to the movie description link and web scrape the description box
 for k,v in moviedict.items():
     if len(v) > 0:
-        moviedesclink = v[0][1]
+        moviedesclink = v[0][2]
         html_text2 = requests.get(moviedesclink).text
         soup = BeautifulSoup(html_text2, 'lxml')
         nodey = soup.find('div', class_ = 'Intro-text col-md-8 col-md-push-4')
         nodey2 = nodey.find('p', itemprop = 'description', class_ = 'show-text')
-        moviedict[k].append(nodey2.text)
+        moviedict[k][0].append(nodey2.text)
 
-        
 for k,v in moviedict.items():
     print(k)
     print(v)
+    
