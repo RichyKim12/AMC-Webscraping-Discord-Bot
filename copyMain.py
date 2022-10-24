@@ -19,8 +19,8 @@ async def on_message(message):
     if message.author == client.user:
         return 
     if message.channel.name == 'homework-help':
-        if user_message.lower() == 'shut up':
-            await message.channel.send(f'Eat my ass {username}! :(')
+        if user_message.lower() == '1':
+            await message.channel.send(f'Bye {username}! :(')
             return 
         elif user_message.lower() == 'bye':
             await message.channel.send(f'Bye {username}!')
