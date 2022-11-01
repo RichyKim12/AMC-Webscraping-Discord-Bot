@@ -13,9 +13,9 @@ import requests #Making Http requests and parsing data
 
 
 
-TOKEN = 'MTAwNDAzMTUyNTc2NTAwOTQxOA.GYyixs.GoLGv1x7hTrEjA4-rkfLVoVYe_7tWKH_ZHEVWA' #personal token don't share online
+TOKEN = '' #personal token don't share online
 
-client = discord.Client()
+client = discord.Client(intents=discord.Intents.all())
 
 
 
@@ -55,8 +55,7 @@ async def on_message(message):
                     mruntime = 'N/A'
                     mreleasedate = 'N/A'
                     mdesc = 'N/A'
-            
-            
+                
                 elif len(list1[0]) == 6:
                     mtitle = list1[0][0]
                     mimg =  list1[0][1]
@@ -76,7 +75,6 @@ async def on_message(message):
                 await message.channel.send(embed=embedv)
                 return 
             
-
 
 client.run(TOKEN)
 

@@ -1,3 +1,4 @@
+from sys import breakpointhook
 from bs4 import BeautifulSoup # web scraping websites using HTML and XML
 import requests  # Making Http requests and parsing data
 import re
@@ -45,24 +46,22 @@ for movie in movies:
    # print(movielink)
     moviedata.append(movielink)
     
-    
     # MOVIE TIME
-    movietimetemp1 = moviePosterContent.find('div', class_ = 'Headline--eyebrow poster-content-meta')
-    node = movietimetemp1.find('p')
-    #print(node)
+    movietimetemp1 = moviePosterContent.find('div', class_ = 'Headline--eyebrow')
+    # node = movietimetemp1.find('p')
+    node = movietimetemp1
+    
     if node.text == '': #if statement to skip over empty description fields
         continue
     else:
-        movietimetemp2 = node
-        movietime = movietimetemp2.find('span', class_ = 'u-separator js-runtimeConvert u-inlineFlexCenter').text
-        movierelease = movietimetemp2.find('span', class_ = 'MoviePosters__released-month clearfix').text
+        movietime = node.find('span', class_ = 'js-runtimeConvert u-inlineFlexCenter').text
+        movierelease = node.find('span', class_ = 'MoviePosters__released-month').text
         # print(movietime)
         # print(movierelease)
-    
-    #print()
-    moviedata.append(movietime)
-    moviedata.append(movierelease)
+        moviedata.append(movietime)
+        moviedata.append(movierelease)
     moviedict[temp].append(moviedata)
+
 
 #navigate to the movie description link and web scrape the description box
 for k,v in moviedict.items():
@@ -70,11 +69,11 @@ for k,v in moviedict.items():
         moviedesclink = v[0][2]
         html_text2 = requests.get(moviedesclink).text
         soup = BeautifulSoup(html_text2, 'lxml')
-        nodey = soup.find('div', class_ = 'Intro-text col-md-8 col-md-push-4')
+        nodey = soup.find('div', class_ = 'Intro-text col-md-8 order-md-last')
         nodey2 = nodey.find('p', itemprop = 'description', class_ = 'show-text')
         moviedict[k][0].append(nodey2.text)
 
+
 for k,v in moviedict.items():
-    print(k)
-    print(v)
+    print(k,v)
     
