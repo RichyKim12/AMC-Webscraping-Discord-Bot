@@ -7,7 +7,6 @@ import bs4
 from bs4 import BeautifulSoup #web scraping websites using HTML and XML
 import requests #Making Http requests and parsing data
 
-#testing bs4 code
 
 
 
@@ -43,28 +42,18 @@ async def on_message(message):
         # If statement to check if user inputted !movie and then movie name
     if message.channel.name == 'bot-testing':
         if ismoviecmd == '!movie' and len(user_message) > 7:
-            movieName = user_message[7: len(user_message)]
-            movieName = (movieName.lower()).replace(" ", "")
-            movieName = re.sub(r'[^a-zA-Z0-9]', '', movieName)
-            if movieName in moviedict:
-                list1 = moviedict[movieName]  
-                if len(list1) < 1:
-                    mtitle = 'N/A'
-                    mimg =  'https://cdn.discordapp.com/attachments/1003838184439959588/1005711160194105405/unknown.png'
-                    mlink ='N/A'
-                    mruntime = 'N/A'
-                    mreleasedate = 'N/A'
-                    mdesc = 'N/A'
-                
-                elif len(list1[0]) == 6:
-                    mtitle = list1[0][0]
-                    mimg =  list1[0][1]
-                    mlink =list1[0][2]
-                    mruntime = list1[0][3]
-                    mreleasedate = list1[0][4]
-                    mreleasedate = mreleasedate[9:len(mreleasedate)]
-                    mdesc = list1[0][5]
-            
+            search = user_message[7: len(user_message)]
+            search = (search.lower()).replace(" ", "")
+            c.execute("SELECT * FROM movies WHERE search=?", (search,))
+            list = c.fetchone()
+            if list:
+                mtitle = list[1]
+                mimg =  list[2]
+                mlink =list[3]
+                mruntime = list[4]
+                mreleasedate = list[5]
+                mreleasedate = mreleasedate[9:len(mreleasedate)]
+                mdesc = list[6]
                 embedv = discord.Embed(title = mtitle, description = mdesc, color=0x00ff00)
                 embedv.set_image(url = mimg)
                 embedv.add_field(name = "Site Link:", value = mlink, inline = False)
