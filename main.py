@@ -12,7 +12,7 @@ import requests #Making Http requests and parsing data
 
 
 
-TOKEN = 'MTAwNDAzMTUyNTc2NTAwOTQxOA.GyxzIn.R9IeV0eOdFRyw_sPLdCc3RNmcynYQVRWoiO20Y' #personal token don't share online
+TOKEN = '' #personal token don't share online
 
 client = discord.Client(intents=discord.Intents.all())
 
