@@ -6,13 +6,12 @@ from discord import Embed
 import bs4
 from bs4 import BeautifulSoup #web scraping websites using HTML and XML
 import requests #Making Http requests and parsing data
+from secretkey import key
 
 
 
 
-
-
-TOKEN = '' #personal token don't share online
+TOKEN = key #personal token don't share online
 
 client = discord.Client(intents=discord.Intents.all())
 
