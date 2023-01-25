@@ -16,3 +16,5 @@ The project will not be able to be run without a secret key which I have intenti
 # Examples of Command inputs
 ## !movie
 
+<img src = "https://github.com/RichyKim12/AMC-Webscraping-Discord-Bot/blob/main/png/!movie-example.PNG">
+
